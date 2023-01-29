@@ -29,6 +29,17 @@ model Order {
   quantity   Int?
   totalPrice Int?
   updatedAt  DateTime  @updatedAt
+  sale       Sale?     @relation(fields: [saleId], references: [id])
+  saleId     String?
+}
+
+model Sale {
+  id         String   @id @default(cuid())
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+  orders     Order[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Customer {
@@ -42,6 +53,7 @@ model Customer {
   orders    Order[]
   phone     String?
   updatedAt DateTime @updatedAt
+  Sale      Sale[]
 }
 
 model Address {
