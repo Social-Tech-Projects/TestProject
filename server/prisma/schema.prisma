@@ -7,6 +7,19 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum PaymentMode {
+  cash
+  card
+  upi
+}
+
+enum Status {
+  received
+  shipped
+  delivered
+  returned
+}
+
 model User {
   createdAt DateTime @default(now())
   firstName String?
@@ -40,6 +53,7 @@ model Customer {
   id        String   @id @default(cuid())
   lastName  String?
   orders    Order[]
+  sales     Sales[]
   phone     String?
   updatedAt DateTime @updatedAt
 }
@@ -63,5 +77,21 @@ model Product {
   itemPrice   Float?
   name        String?
   orders      Order[]
+  sales       Sales[]
   updatedAt   DateTime @updatedAt
+}
+
+model Sales {
+  id          String      @id @default(cuid())
+  customerId  String?
+  customer    Customer?   @relation(fields: [customerId], references: [id])
+  discount    Float?
+  productId   String?
+  product     Product?    @relation(fields: [productId], references: [id])
+  quantity    Int?
+  totalPrice  Int?
+  paymentMode PaymentMode @default(cash)
+  status      Status      @default(received)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
