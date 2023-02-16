@@ -29,6 +29,7 @@ model Order {
   quantity   Int?
   totalPrice Int?
   updatedAt  DateTime  @updatedAt
+  Sales      Sales[]
 }
 
 model Customer {
@@ -64,4 +65,24 @@ model Product {
   name        String?
   orders      Order[]
   updatedAt   DateTime @updatedAt
+}
+
+model Sales {
+  id        String   @id @default(cuid())
+  order     Order?   @relation(fields: [orderId], references: [id])
+  orderId   String?
+  payment   Payment
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Payment {
+  CASH
+  CREDIT_CARD
+  DEBIT_CARD
+  PAYPAL
+  GOOGLE_PAY
+  APPLE_PAY
+  BITCOIN
+  ETHEREUM
 }

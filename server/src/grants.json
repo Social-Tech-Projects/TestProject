@@ -148,5 +148,11 @@
     "resource": "Product",
     "action": "read:any",
     "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Sales",
+    "action": "read:any",
+    "attributes": "*"
   }
 ]
