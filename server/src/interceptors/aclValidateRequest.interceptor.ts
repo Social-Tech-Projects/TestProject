@@ -22,26 +22,22 @@ export class AclValidateRequestInterceptor implements NestInterceptor {
       "roles",
       [context.getHandler(), context.getClass()]
     );
-
     const type = context.getType();
 
-    const inputDataToValidate =
+    const inputDataToValidate = 
       type === "http"
         ? context.switchToHttp().getRequest().body
         : context.getArgByIndex(1).data;
-
     const permission = this.rolesBuilder.permission({
       role: permissionsRoles.role,
       action: permissionsRoles.action,
       possession: permissionsRoles.possession,
       resource: permissionsRoles.resource,
     });
-
     const invalidAttributes = abacUtil.getInvalidAttributes(
       permission,
       inputDataToValidate
     );
-
     if (invalidAttributes.length) {
       throw new ForbiddenException(
         "Insufficient privileges to complete the operation"

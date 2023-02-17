@@ -26,6 +26,7 @@ model Order {
   id         String    @id @default(cuid())
   product    Product?  @relation(fields: [productId], references: [id])
   productId  String?
+  sales      Sales?
   quantity   Int?
   totalPrice Int?
   updatedAt  DateTime  @updatedAt
@@ -63,5 +64,23 @@ model Product {
   itemPrice   Float?
   name        String?
   orders      Order[]
+  sales       Sales[]
   updatedAt   DateTime @updatedAt
+}
+
+model Sales {
+  createdAt      DateTime               @default(now())
+  id             String                 @id @default(cuid())
+  order          Order?                 @relation(fields: [orderId], references: [id])
+  orderId        String?                @unique
+  payementMethod EnumSalePayementMethod
+  price          Float?
+  product        Product?               @relation(fields: [productId], references: [id])
+  productId      String?
+  updatedAt      DateTime               @updatedAt
+}
+
+enum EnumSalePayementMethod {
+  online
+  offline
 }
