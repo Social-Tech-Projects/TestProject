@@ -21,8 +21,7 @@ async function main() {
   app.setGlobalPrefix("api");
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
-      forbidUnknownValues: false
+      transform: true 
     })
   );
 
