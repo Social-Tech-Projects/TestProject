@@ -15,6 +15,8 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ServeStaticOptionsService } from "./serveStaticOptions.service";
 import { GraphQLModule } from "@nestjs/graphql";
+import { SalesModule } from "./sales/sales.module";
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   controllers: [],
@@ -22,6 +24,7 @@ import { GraphQLModule } from "@nestjs/graphql";
     UserModule,
     OrderModule,
     CustomerModule,
+    SalesModule,
     AddressModule,
     ProductModule,
     ACLModule,
@@ -35,6 +38,7 @@ import { GraphQLModule } from "@nestjs/graphql";
       useClass: ServeStaticOptionsService,
     }),
     GraphQLModule.forRootAsync({
+      driver: ApolloDriver,
       useFactory: (configService) => {
         const playground = configService.get("GRAPHQL_PLAYGROUND");
         const introspection = configService.get("GRAPHQL_INTROSPECTION");
@@ -48,7 +52,7 @@ import { GraphQLModule } from "@nestjs/graphql";
       inject: [ConfigService],
       imports: [ConfigModule],
     }),
-  ],
+   ],
   providers: [
     {
       provide: APP_INTERCEPTOR,
