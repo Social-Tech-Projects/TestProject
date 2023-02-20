@@ -6,7 +6,6 @@
     "start:watch": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "build": "nest build",
-    "test": "jest",
     "seed": "ts-node scripts/seed.ts",
     "db:migrate-save": "prisma migrate dev",
     "db:migrate-up": "prisma migrate deploy",
@@ -43,6 +42,7 @@
     "passport-http": "0.3.0",
     "passport-jwt": "4.0.0",
     "reflect-metadata": "0.1.13",
+    "rxjs": "^7.8.0",
     "swagger-ui-express": "4.3.0",
     "ts-node": "9.1.1"
   },

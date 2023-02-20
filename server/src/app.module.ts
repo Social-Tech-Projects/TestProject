@@ -15,6 +15,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ServeStaticOptionsService } from "./serveStaticOptions.service";
 import { GraphQLModule } from "@nestjs/graphql";
+import { SaleModule } from "./sale/sale.module";
 
 @Module({
   controllers: [],
@@ -30,6 +31,7 @@ import { GraphQLModule } from "@nestjs/graphql";
     PrismaModule,
     SecretsManagerModule,
     MorganModule,
+    SaleModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
@@ -57,4 +59,4 @@ import { GraphQLModule } from "@nestjs/graphql";
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
